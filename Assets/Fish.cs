@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,6 +41,7 @@ public class Fish
 
     public void Update(ref List<Fish> f, float delta)
     {
+        navigationModule(ref f);
 		detectCollide (ref f);
 		solver.Solve (ref oldPosition, ref position, ref velocity, ref acceleration, delta);
 		UpdatePosition ();
@@ -98,6 +99,79 @@ public class Fish
 
 	public void AddForce(Vector3 force) {
 		acceleration = force / mass;
-
 	}
+
+     Vector3 computeAlignment(ref List<Fish> f) 
+    {
+        Vector3 v = new Vector3();
+        int neighborCount = 0;
+        foreach (Fish h in f)
+        {
+            if (h != this)
+            {
+                if (seeThat(h))
+                {
+                    v += h.velocity;
+                    neighborCount++;
+                }
+            }
+        }
+        if (neighborCount == 0) return v;
+        v /= neighborCount;
+        v.Normalize();
+        return v;
+    }
+
+     Vector3 computeCohesion(ref List<Fish> f)
+    {
+        Vector3 v = new Vector3();
+        int neighborCount = 0;
+        foreach (Fish h in f)
+        {
+            if (h != this)
+            {
+                if (seeThat(h))
+                {
+                    v += h.position;
+                    neighborCount++;
+                }
+            }
+        }
+        if (neighborCount == 0) return v;
+        v /= neighborCount;
+        v = new Vector3(v.x - position.x, v.y - position.y);
+        v.Normalize();
+        return v;
+    }
+
+     Vector3 computeSeparation(ref List<Fish> f)
+    {
+        Vector3 v = new Vector3();
+        int neighborCount = 0;
+        foreach (Fish h in f)
+        {
+            if (h != this)
+            {
+                if (seeThat(h))
+                {
+                    v += h.position - position;
+                    neighborCount++;
+                }
+            }
+        }
+        if (neighborCount == 0) return v;
+        v /= neighborCount;
+        v *= -1;
+        v.Normalize();
+        return v;
+    }
+
+    void navigationModule(ref List<Fish> f)
+    {
+        var alignment = computeAlignment(ref f);
+        var cohesion = computeCohesion(ref f);
+        var separation = computeSeparation(ref f);
+        velocity += alignment + cohesion + separation;
+        velocity.Normalize();
+    }
 }
