@@ -11,7 +11,7 @@ public class CircleCollide{
         this.position = position;
     }
 
-    bool collided(CircleCollide o)
+    public bool collided(CircleCollide o)
     {
         Vector3 y = position - o.position;
         float length = y.sqrMagnitude;
