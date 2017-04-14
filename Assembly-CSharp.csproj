@@ -46,13 +46,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CircleCollide.cs" />
-     <Compile Include="Assets\Constants.cs" />
-     <Compile Include="Assets\EulerSolver.cs" />
-     <Compile Include="Assets\Fish.cs" />
-     <Compile Include="Assets\Rule.cs" />
-     <Compile Include="Assets\main.cs" />
-     <Compile Include="Assets\red.cs" />
+     <Compile Include="Assets\Scripts\CircleCollide.cs" />
+     <Compile Include="Assets\Scripts\Constants.cs" />
+     <Compile Include="Assets\Scripts\EulerSolver.cs" />
+     <Compile Include="Assets\Scripts\Fish.cs" />
+     <Compile Include="Assets\Scripts\Rule.cs" />
+     <Compile Include="Assets\Scripts\main.cs" />
+     <Compile Include="Assets\Scripts\obstacle.cs" />
+     <Compile Include="Assets\Scripts\red.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

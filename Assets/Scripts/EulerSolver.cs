@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿/*
+ * this module solve physics kinetics equations
+ */ 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
